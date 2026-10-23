@@ -1,0 +1,16 @@
+import cv2
+
+img = cv2.imread("4friends.jpg")
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+faces = face_cascade.detectMultiScale(gray)
+print("faces")
+
+for (x, y, h, w) in faces:
+    cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+    roi_color = img[y:y+h, x:x+w]
+    cv2.imwrite("face.jpg",roi_color)
+
+cv2.imshow('img',img)
+cv2.waitKey(0)
